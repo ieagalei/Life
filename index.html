@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>FM DPS</title>
+  <title>Life</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
     :root{
@@ -11,8 +11,6 @@
       --bg: #012;
       --panel: #162;
       --text: #fff;
-      --good-bg: #eff;
-      --bad-bg: #fee;
     }
     body { font-family: Arial, sans-serif; padding: 20px; background: #040404; color: var(--text); }
     h2 { margin-top: 10px; }
@@ -58,70 +56,28 @@
 </head>
 
 <body>
-  <h1>🧮 Forge Master DPS - by Kayzee</h1>
+  <h1> Things useful for people in their adventure that is their life - by Kayzee</h1>
   <h2 style="font-weight:normal">Instructions</h2>
-  <h3>1. Copy the total damage and health from status page</h3>
-  <h3>2. Copy the total speed, double and crit values</h3>
-  <h3>3. Copy the total regen and block values</h3>
+  <h3>1. Take 3 deep breaths, and select from the options below</h3>
 
   <div class="grid-row">
     <div class="column">
-      <table id="results_table" class="simple-table" aria-label="Attack Speed Steps">
-        <thead>
-          <tr><th>Attack Speed</th><th>  Time (s)</th><th>Attack Speed</th><th>  Double Time (s)</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>= 0%</td><td>1.7</td><td>= 0%</td><td>0.2</td></tr>
-          <tr><td>&lt; 7.1%</td><td>1.6</td><td>&gt; 100%</td><td>0.1</td></tr>
-          <tr><td>&lt; 15.4%</td><td>1.5</td></tr>
-          <tr><td>&lt;= 25.0%</td><td>1.4</td></tr>
-          <tr><td>&lt; 36.4%</td><td>1.3</td></tr>
-          <tr><td>&lt;= 50.0%</td><td>1.2</td></tr>
-          <tr><td>&lt; 66.7%</td><td>1.1</td></tr>
-          <tr><td>&lt;= 87.5%</td><td>1.0</td></tr>
-          <tr><td>&lt; 114%</td><td>0.9</td></tr>
-          <tr><td>&lt;= 150%</td><td>0.8</td></tr>
-          <tr><td>&lt;= 200%</td><td>0.7</td></tr>
-          <tr><td>&lt;= 275%</td><td>0.6</td></tr>
-          <tr><td>&lt;= 400%</td><td>0.5</td></tr>
-          <tr><td>&gt; 400%</td><td>0.4</td></tr>
-        </tbody>
-      </table>
-      <div>Please note the above are not set steps for attack speed. Different weapons have different offsets and rounding so the example can only be used as a rough guide. Also double chance adds on the delay.</div>
-    </div>
-    <div class="column" id="inputs">
-      <h2 style="margin:6px 0">Inputs</h2>
-      <div id="input">
-        <label><input type="number" id="e1_damage" value="0" step="any"/> Damage</label>
-        <label><input type="number" id="e1_speed" value="0" step="any"/> Attack Speed (%)</label>
-        <label><input type="number" id="e1_double" value="0" step="any"/> Double Chance (%)</label>
-        <label><input type="number" id="e1_crit" value="0" step="any"/> Crit Chance (%)</label>
-        <label><input type="number" id="e1_critdmg" value="0" step="any"/> Crit Damage (%)</label>
-        <label><input type="number" id="e1_health" value="0" step="any"/> Health</label>
-        <label><input type="number" id="e1_regen" value="0" step="any"/> Health Regen (%)</label>
-        <label><input type="number" id="e1_block" value="0" step="any"/> Block (%)</label>
-      </div>
-      <div class="stats" id="input_stats"></div>
-      <div style="margin-top:12px;">
-        <button onclick="calculate()">Calculate DPS</button>
-        <div id="result">Results will appear here.</div>
-      </div>
       <div class="nav" style="margin-top:20px;">
-        <a href="https://discord.gg/forgemaster" class="card" target="_blank" rel="noopener noreferrer">
-          <div class="icon">🔨</div>
-          <div>Discord Link</div>
+        <a href="https://www.youtube.com/channel/UCsXVk37bltHxD1rDPwtNM8Q" class="card" target="_blank" rel="noopener noreferrer">
+          <div class="icon">🌰🐿️</div>
+          <div>Youtube - Kurzgesagt – In a Nutshell</div>
         </a>
-        <a href="forge.html" class="card">
+        <a href="text.html" class="card">
           <div class="icon">🛠️</div>
-          <div>Forge Maths</div>
+          <div>Text</div>
         </a>
-        <a href="research.html" class="card">
+        <a href="text.html" class="card">
           <div class="icon">🌳</div>
-          <div>Tech Tree Maths</div>
+          <div>Text</div>
         </a>
-        <a href="build.html" class="card">
+        <a href="text.html" class="card">
           <div class="icon">👷</div>
-          <div>Build Maths</div>
+          <div>Text</div>
         </a>
       </div>
     </div>
