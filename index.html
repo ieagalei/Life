@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FM DPS</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{
+      --accent: #26e;
+      --muted: #678;
+      --bg: #012;
+      --panel: #162;
+      --text: #fff;
+      --good-bg: #eff;
+      --bad-bg: #fee;
+    }
+    body { font-family: Arial, sans-serif; padding: 20px; background: #040404; color: var(--text); }
+    h2 { margin-top: 10px; }
+    label { display: block; margin: 6px 0 2px; }
+    input[type="number"] { width: 120px; margin-bottom: 8px; }
+    button { margin-top: 12px; padding: 8px 14px; }
+    #result { margin-top: 18px; font-weight: 600; white-space: pre-wrap; background:#222; padding:12px; border-radius:8px; border:1px solid #363e18; }
+    .stats { margin-top: 8px; font-style: italic; color:var(--muted) }
+    .nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin: 0 auto 12px;
+      padding: 8px 0;
+    }
+    .card {
+      display: inline-block;
+      text-decoration: none; /* remove underline */
+      color: inherit;        /* keep text color */
+      background: var(--panel);
+      border: 1px solid #dfe6f6;
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      font-weight: 600;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .card:hover {
+      background: var(--accent);
+      color: #081326;
+      transform: translateY(-4px);
+    }
+    .small-note { font-size:0.9rem; color:var(--muted); margin-top:8px; }
+    .grid-row { display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start; }
+    .column { min-width:200px; }
+    .simple-table th, .simple-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #f0f6ff;
+      color: var(--text);
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>🧮 Forge Master DPS - by Kayzee</h1>
+  <h2 style="font-weight:normal">Instructions</h2>
+  <h3>1. Copy the total damage and health from status page</h3>
+  <h3>2. Copy the total speed, double and crit values</h3>
+  <h3>3. Copy the total regen and block values</h3>
+
+  <div class="grid-row">
+    <div class="column">
+      <table id="results_table" class="simple-table" aria-label="Attack Speed Steps">
+        <thead>
+          <tr><th>Attack Speed</th><th>  Time (s)</th><th>Attack Speed</th><th>  Double Time (s)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>= 0%</td><td>1.7</td><td>= 0%</td><td>0.2</td></tr>
+          <tr><td>&lt; 7.1%</td><td>1.6</td><td>&gt; 100%</td><td>0.1</td></tr>
+          <tr><td>&lt; 15.4%</td><td>1.5</td></tr>
+          <tr><td>&lt;= 25.0%</td><td>1.4</td></tr>
+          <tr><td>&lt; 36.4%</td><td>1.3</td></tr>
+          <tr><td>&lt;= 50.0%</td><td>1.2</td></tr>
+          <tr><td>&lt; 66.7%</td><td>1.1</td></tr>
+          <tr><td>&lt;= 87.5%</td><td>1.0</td></tr>
+          <tr><td>&lt; 114%</td><td>0.9</td></tr>
+          <tr><td>&lt;= 150%</td><td>0.8</td></tr>
+          <tr><td>&lt;= 200%</td><td>0.7</td></tr>
+          <tr><td>&lt;= 275%</td><td>0.6</td></tr>
+          <tr><td>&lt;= 400%</td><td>0.5</td></tr>
+          <tr><td>&gt; 400%</td><td>0.4</td></tr>
+        </tbody>
+      </table>
+      <div>Please note the above are not set steps for attack speed. Different weapons have different offsets and rounding so the example can only be used as a rough guide. Also double chance adds on the delay.</div>
+    </div>
+    <div class="column" id="inputs">
+      <h2 style="margin:6px 0">Inputs</h2>
+      <div id="input">
+        <label><input type="number" id="e1_damage" value="0" step="any"/> Damage</label>
+        <label><input type="number" id="e1_speed" value="0" step="any"/> Attack Speed (%)</label>
+        <label><input type="number" id="e1_double" value="0" step="any"/> Double Chance (%)</label>
+        <label><input type="number" id="e1_crit" value="0" step="any"/> Crit Chance (%)</label>
+        <label><input type="number" id="e1_critdmg" value="0" step="any"/> Crit Damage (%)</label>
+        <label><input type="number" id="e1_health" value="0" step="any"/> Health</label>
+        <label><input type="number" id="e1_regen" value="0" step="any"/> Health Regen (%)</label>
+        <label><input type="number" id="e1_block" value="0" step="any"/> Block (%)</label>
+      </div>
+      <div class="stats" id="input_stats"></div>
+      <div style="margin-top:12px;">
+        <button onclick="calculate()">Calculate DPS</button>
+        <div id="result">Results will appear here.</div>
+      </div>
+      <div class="nav" style="margin-top:20px;">
+        <a href="https://discord.gg/forgemaster" class="card" target="_blank" rel="noopener noreferrer">
+          <div class="icon">🔨</div>
+          <div>Discord Link</div>
+        </a>
+        <a href="forge.html" class="card">
+          <div class="icon">🛠️</div>
+          <div>Forge Maths</div>
+        </a>
+        <a href="research.html" class="card">
+          <div class="icon">🌳</div>
+          <div>Tech Tree Maths</div>
+        </a>
+        <a href="build.html" class="card">
+          <div class="icon">👷</div>
+          <div>Build Maths</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const $ = id => document.getElementById(id);
+
+    function parseInputValue(id) {
+      const el = $(id);
+      if (!el) return 0;
+      const v = parseFloat(el.value);
+      return Number.isFinite(v) ? v : 0;
+    }
+
+    function getStats(prefix) {
+      const damage = parseInputValue(prefix + '_damage');
+      const speed = parseInputValue(prefix + '_speed') / 100;
+      const dbl = parseInputValue(prefix + '_double') / 100;
+      const crit = parseInputValue(prefix + '_crit') / 100;
+      const critdmg = (parseInputValue(prefix + '_critdmg') / 100) + 0.2;
+      const health = parseInputValue(prefix + '_health');
+      const regen = parseInputValue(prefix + '_regen') / 100;
+      const block = parseInputValue(prefix + '_block') / 100;
+      return { damage, speed, double: dbl, crit, critdmg, health, regen, block };
+    }
+
+    function computeDPS(p) {
+      let dmg = Number(p.damage) || 0;
+      let dbl = Number(p.double) || 0;
+      let crit = Number(p.crit) || 0;
+      const critdmg = Number(p.critdmg) || 0;
+      let spd = Number(p.speed) || 0;
+      let spds = Number(p.speed) || 0;
+      let heal = Number(p.health) || 0;
+      let regn = Number(p.regen) || 0;
+      let blck = Number(p.block) || 0;
+
+      dbl = Math.max(0, Math.min(1, dbl));
+
+      crit = Math.max(0, Math.min(1, crit));
+      crit = 1 + (crit * critdmg);
+
+      const denom = Math.round((15 / (1 + spd)) + 1.5);
+      const denim = Math.round((1.5 / (1 + spd)) + 0.75);
+      spd = (denom <= 0) ? 0 : 10 / denom;
+      spdd = (denom <= 0) ? 0 : 10 / (denom + denim);
+
+      spd = ((1 - dbl) * spd) + (dbl * spdd);
+      dbl = 1 + dbl;
+
+      const denam = (1-blck);
+      blck = (denam <= 0) ? 0 : 1 / denam;
+
+      return { dmg: dmg * dbl * crit * spd, spd, dbl, crit, heal: heal * regn * blck, regn, blck };
+    }
+
+    function calculate() {
+      const input = getStats('e1');
+      const stats = computeDPS(input);
+
+      $('input_stats').textContent =
+        `Parsed inputs — Damage: ${formatNumber(input.damage)}, Speed: ${(input.speed*100).toFixed(2)}%, Double: ${(input.double*100).toFixed(2)}%, Crit: ${(input.crit*100).toFixed(2)}%, CritDmg(mult): ${input.critdmg.toFixed(2)}`;
+
+      let resultText = '';
+      resultText += `DPS: ${formatNumber(stats.dmg)}\n`;
+      resultText += `Damage per hit (base): ${formatNumber(input.damage)}\n`;
+      resultText += `Attacks per second (approx): ${formatNumber(stats.spd)}\n`;
+      resultText += `Double multiplier applied: ${stats.dbl.toFixed(2)}\n`;
+      resultText += `Crit multiplier applied: ${stats.crit.toFixed(2)}\n`;
+
+      resultText += `HPS: ${formatNumber(stats.heal)}\n`;
+      resultText += `Regen multiplier applied: ${stats.regn.toFixed(2)}\n`;
+      resultText += `Block multiplier applied: ${stats.blck.toFixed(2)}\n`;
+
+      $('result').textContent = resultText;
+    }
+
+    function formatNumber(num) {
+      const n = Number(num);
+      if (!isFinite(n)) return '0.00';
+      const abs = Math.abs(n);
+      if (abs >= 1_000_000) return (n/1_000_000).toFixed(2) + 'M';
+      if (abs >= 1_000) return (n/1_000).toFixed(2) + 'K';
+      return n.toFixed(2);
+    }
+
+    // Live parsed input display
+    (function attachInputListeners() {
+      const ids = ['e1_damage','e1_speed','e1_double','e1_crit','e1_critdmg','e1_health','e1_regen','e1_block'];
+      ids.forEach(id => {
+        const el = $(id);
+        if (el) el.addEventListener('input', () => {
+          const parsed = getStats('e1');
+          $('input_stats').textContent =
+            `Parsed inputs — Damage: ${formatNumber(parsed.damage)}, Speed: ${(parsed.speed*100).toFixed(2)}%, Double: ${(parsed.double*100).toFixed(2)}%, Crit: ${(parsed.crit*100).toFixed(2)}%, Critdmg: ${(parsed.critdmg*100).toFixed(2)}%, Health: ${(parsed.health)}, Regen: ${(parsed.regen*100).toFixed(2)}%, Block: ${(parsed.block*100).toFixed(2)}%`;
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
