@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Life</title>
+  <title>🛠️ Career</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
     :root{
@@ -18,6 +18,11 @@
     input[type="number"] { width: 120px; margin-bottom: 8px; }
     button { margin-top: 12px; padding: 8px 14px; }
     #result { margin-top: 18px; font-weight: 600; white-space: pre-wrap; background:#222; padding:12px; border-radius:8px; border:1px solid #363e18; }
+    #youBox { margin-top: 18px; font-weight: 600; white-space: pre-wrap; background:#222;}
+    #jobBox { margin-top: 18px; font-weight: 600; white-space: pre-wrap; background:#222;}
+    #appBox { margin-top: 18px; font-weight: 600; white-space: pre-wrap; background:#222;}
+    #talkBox { margin-top: 18px; font-weight: 600; white-space: pre-wrap; background:#222;}
+    
     .stats { margin-top: 8px; font-style: italic; color:var(--muted) }
     .nav {
       display: grid;
@@ -56,10 +61,30 @@
 </head>
 
 <body>
-  <h1> Placeholder Text - by Kayzee</h1>
+  <h1> 🛠️ Career - by Kayzee</h1>
   <h2 style="font-weight:normal">Instructions</h2>
-  <h3>1. Ooops! Looks like you are too fast</h3>
-  <h3>2. Take another deep breath, and try again</h3>
+  <h3>1. There are some summaries below</h3>
+  <h3>2. You may need to google for (quizzes) and examples</h3>
+
+  <div style="margin-top:12px;">
+    <button onclick="youBtn()">Show/Hide #1</button>
+    <div id="youBox">Who are you?</div>
+  </div>
+
+  <div style="margin-top:12px;">
+    <button onclick="jobBtn()">Show/Hide #2</button>
+    <div id="jobBox">What to do?</div>
+  </div>
+
+  <div style="margin-top:12px;">
+    <button onclick="appBtn()">Show/Hide #3</button>
+    <div id="appBox">Apply, apply!</div>
+  </div>
+
+  <div style="margin-top:12px;">
+    <button onclick="talkBtn()">Show/Hide #4</button>
+    <div id="talkBox">Practice, practice, practice!</div>
+  </div>
 
   <div class="grid-row">
     <div class="column">
@@ -85,7 +110,66 @@
   </div>
 
   <script>
-// place for codes
+
+    // Helpers
+    const $ = id => document.getElementById(id);
+
+    function youBtn() {
+      let youText = '';
+	if ($('youBox').textContent === 'Who are you?') {
+          youText += `1. Who are you? (personality, values, interests, VITALS)\n`;
+          youText += `2. Understand your skills (quizzes for Strength/Weaknesses)\n`;
+          youText += `- Hard Skills, Soft Skills, Transferrable Skills, Training options\n`;
+          youText += `3. Identify suitable career paths (general jobs, or career specific)\n`;
+          youText += `Outcome: Clear understanding of yourself and suitable career options`;
+        } else {
+          youText = 'Who are you?';
+        }
+      $('youBox').textContent = youText;
+    }
+
+    function jobBtn() {
+      let jobText = '';
+	if ($('jobBox').textContent === 'What to do?') {
+          jobText += `1. Research industries, roles, and job market trends\n`;
+          jobText += `2. Understand job requirements and expectations -> don't apply if not a match\n`;
+          jobText += `3. Match your skills to roles\n`;
+          jobText += `3. Research employers and company values -> Cover letter, interviews\n`;
+          jobText += `Outcome: Target roles and understanding of what employers want`;
+        } else {
+          jobText = 'What to do?';
+        }
+      $('jobBox').textContent = jobText;
+    }
+
+    function appBtn() {
+      let appText = '';
+	if ($('appBox').textContent === 'Apply, apply!') {
+          appText += `1. Resume structure and tailoring -> different resume for each industry\n`;
+          appText += `2. Writing effective cover letters -> always a new one for each job\n`;
+          appText += `3. Have strong and personal introduction and presence\n`;
+          appText += `4. Update Linked in, Seek or other relevant profiles\n`;
+          appText += `Outcome: Strong, tailored applications and visibility to employers`;
+        } else {
+          appText = 'Apply, apply!';
+        }
+      $('appBox').textContent = appText;
+    }
+
+    function talkBtn() {
+      let talkText = '';
+	if ($('talkBox').textContent === 'Practice, practice, practice!') {
+          talkText += `1. Always prepare and practice communication and delivery.\n`;
+          talkText += `2. Easy to get 10-20 common questions, but also consider personality or technical ones\n`;
+          talkText += `3. Structure delivery, avoid jargon, STAR examples\n`;
+          talkText += `4. Be proactive, polite, thankful, resilient and persistent\n`;
+          talkText += `Outcome: Confidence in interviews and long-term career mindset`;
+        } else {
+          talkText = 'Practice, practice, practice!';
+        }
+      $('talkBox').textContent = talkText;
+    }
+
   </script>
 </body>
 </html>
